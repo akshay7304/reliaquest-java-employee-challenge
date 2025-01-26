@@ -1,0 +1,40 @@
+plugins {
+    id 'project-conventions'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation project(path: ':server')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'io.github.resilience4j:resilience4j-spring-boot2:2.3.0'
+    implementation 'io.github.resilience4j:resilience4j-circuitbreaker:2.3.0'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+springBoot {
+    mainClass = 'com.reliaquest.api.ApiApplication'
+}
+
+// Jacoco configuration
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+tasks.test {
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn tasks.test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}

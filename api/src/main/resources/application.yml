@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: employee-api
+  profiles:
+    active: dev
+
+server.port: 8111
+
+logging:
+  level:
+    com.reliaquest.api.service.EmployeeService: INFO
+    com.reliaquest.api.service.EmployeeFallbackService: INFO
+    org.springframework: INFO
+
+  file:
+    name: logs/employee-service.log
+
+  resilience4j:
+    circuitbreaker:
+      instances:
+        myServiceCircuitBreaker:
+          registerHealthIndicator: true
+          failureRateThreshold: 30
+          slidingWindowSize: 100
+          permittedNumberOfCallsInHalfOpenState: 5
+          waitDurationInOpenState: 3000ms
+          minimumNumberOfCalls: 4
+          timeIntervalInOpenState: 10000ms
