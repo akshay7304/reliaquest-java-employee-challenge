@@ -32,12 +32,12 @@ public class EmployeeService {
     public static final String API_URL = "http://localhost:8112/api/v1/employee";
     private final IHttpClient httpClient;
 
-    @Autowired
-    private EmployeeFallbackService employeeFallbackService;
-
     public EmployeeService(IHttpClient httpClient) {
         this.httpClient = httpClient;
     }
+
+    @Autowired
+    private EmployeeFallbackService employeeFallbackService;
 
     private List<Employee> fetchAllEmployees() {
         try {
