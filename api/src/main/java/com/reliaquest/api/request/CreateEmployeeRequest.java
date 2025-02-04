@@ -21,4 +21,6 @@ public class CreateEmployeeRequest {
 
     @NotBlank(message = "Title is mandatory")
     private String title;
+
+    private String email;
 }
